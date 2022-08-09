@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Layout } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { Layout } from 'antd';
 import './App.css';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import Sider from 'antd/es/layout/Sider';
 import RequestsList from './components/requests/RequestsList';
 import Map from './components/map/Map';
 import Divider from './components/devider/Divider';
+import MapContent from './components/map/MapContent';
+
+const minWidthPercentage = 30;
+const maxWidthPercentage = 70;
 
 function App() {
   const [isResizing, setIsResizing] = useState(false);
-  const [width, setWidth] = useState(400);
+  const [width, setWidth] = useState(50);
 
   const onMouseMove = e => {
     if (isResizing) {
-      let offsetRight =
-        document.body.offsetWidth - (e.clientX - document.body.offsetLeft);
-      const minWidth = 50;
-      const maxWidth = 600;
-      // if (offsetRight > minWidth && offsetRight < maxWidth) {
-      //   setWidth(offsetRight);
-      // }
-      setWidth(e.clientX);
+      const newWidth = e.clientX / window.innerWidth * 100;
+      if (newWidth >= minWidthPercentage && newWidth <= maxWidthPercentage) {
+        setWidth(newWidth);
+      }
 
       e.preventDefault();
+      e.stopPropagation();
     }
   };
 
@@ -51,7 +51,7 @@ function App() {
         <Content className="main">
           <RequestsList width={width} />
           <Divider onMouseDown={onMouseDown} />
-          <Map />
+          <Map content={<MapContent leftWidth={width} />} />
         </Content>
       </Layout>
       <Footer>Footer</Footer>

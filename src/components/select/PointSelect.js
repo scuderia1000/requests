@@ -16,7 +16,7 @@ const PointSelect = ({ pointId, record, index, isLoadingPoints = true }) => {
   const handleChange = (value) => dispatch(changeLoadingPoint(getChangedData(value)));
 
   return (
-    <Select defaultValue={pointsData?.[pointId].name} style={{ width: 120 }} onChange={handleChange}>
+    <Select defaultValue={pointsData?.[pointId].name} style={{ width: 200 }} onChange={handleChange}>
       {Object.keys(pointsData)?.map((id) =>
         (<Select.Option key={id} value={id}>
           {pointsData?.[id].name}

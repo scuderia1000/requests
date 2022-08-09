@@ -1,0 +1,7 @@
+.selected {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.ant-table-tbody > tr.selected > td.ant-table-cell-row-hover {
+  background: initial;
+}
