@@ -1,13 +1,56 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import { fetchCount } from './counterAPI';
 
-const initialState = {
+export const pointsInitialState = {
   1: {
-    label: 'Заявка №1',
-    points: {
-      loading: [],
-      unloading: [],
-    }
+    id: 1,
+    name: 'Добрянка',
+    point: [],
+  },
+  2: {
+    id: 2,
+    name: 'Полазна',
+    point: [],
+  },
+  3: {
+    id: 3,
+    name: 'Березники',
+    point: [],
+  },
+  4: {
+    id: 4,
+    name: 'Соликамск',
+    point: [],
+  },
+  5: {
+    id: 5,
+    name: 'Кунгур',
+    point: [],
+  },
+  6: {
+    id: 6,
+    name: 'Пермь',
+    point: [],
+  },
+  7: {
+    id: 7,
+    name: 'Оса',
+    point: [],
+  },
+  8: {
+    id: 8,
+    name: 'Елово',
+    point: [],
+  },
+  9: {
+    id: 9,
+    name: 'Кукуштан',
+    point: [],
+  },
+  10: {
+    id: 10,
+    name: 'Барда',
+    point: [],
   },
 };
 
@@ -25,9 +68,9 @@ const initialState = {
 //   }
 // );
 
-export const requestsSlice = createSlice({
-  name: 'requests',
-  initialState,
+export const pointsSlice = createSlice({
+  name: 'points',
+  initialState: pointsInitialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     increment: (state) => {
@@ -59,12 +102,12 @@ export const requestsSlice = createSlice({
   // },
 });
 
-export const { increment, decrement, incrementByAmount } = requestsSlice.actions;
+export const { increment, decrement, incrementByAmount } = pointsSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const requestsCount = (state) => state.requests.value;
+export const points = (state) => state.points;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
@@ -75,4 +118,4 @@ export const requestsCount = (state) => state.requests.value;
 //   }
 // };
 
-export default requestsSlice.reducer;
+export default pointsSlice.reducer;

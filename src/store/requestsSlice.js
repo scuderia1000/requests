@@ -1,33 +1,39 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { loadingPoints, loadingPointsInitialState } from './loadingPointsSlice';
 import { unloadingPoints } from './unloadingPointsSlice';
+import { points } from './pointsSlice';
 // import { fetchCount } from './counterAPI';
 
 const initialState = {
   1: {
+    id: 1,
     name: 'Заявка №1',
     loadingPointId: 1,
-    unloadingPointId: 1,
+    unloadingPointId: 6,
   },
   2: {
+    id: 2,
     name: 'Заявка №2',
     loadingPointId: 2,
-    unloadingPointId: 2,
+    unloadingPointId: 7,
   },
   3: {
+    id: 3,
     name: 'Заявка №3',
     loadingPointId: 3,
-    unloadingPointId: 3,
+    unloadingPointId: 8,
   },
   4: {
+    id: 4,
     name: 'Заявка №4',
     loadingPointId: 4,
-    unloadingPointId: 4,
+    unloadingPointId: 9,
   },
   5: {
+    id: 5,
     name: 'Заявка №5',
     loadingPointId: 5,
-    unloadingPointId: 5,
+    unloadingPointId: 10,
   },
 };
 
@@ -48,14 +54,14 @@ const initialState = {
 export const requestsSlice = createSlice({
   name: 'requests',
   initialState,
-  // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
+    changeLoadingPoint: (state, { payload }) => {
+      console.log('payload', payload);
+      const { id } = payload;
+      state[id] = {
+        ...state[id],
+        ...payload,
+      };
     },
     decrement: (state) => {
       state.value -= 1;
@@ -79,7 +85,7 @@ export const requestsSlice = createSlice({
   // },
 });
 
-export const { increment, decrement, incrementByAmount } = requestsSlice.actions;
+export const { changeLoadingPoint, decrement, incrementByAmount } = requestsSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -87,8 +93,9 @@ export const { increment, decrement, incrementByAmount } = requestsSlice.actions
 export const requests = (state) => state.requests;
 export const requestsTableData = (state) => Object.keys(state.requests).map(id => {
   const requestData = requests(state)?.[id];
-  const loadingPointData = loadingPoints(state)?.[requestData.loadingPointId];
-  const unloadingPointData = unloadingPoints(state)?.[requestData.unloadingPointId];
+  const pointsData = points(state);
+  const loadingPointData = pointsData?.[requestData.loadingPointId];
+  const unloadingPointData = pointsData?.[requestData.unloadingPointId];
 
   return {
     key: id,
