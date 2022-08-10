@@ -6,6 +6,10 @@
   background: rgba(0, 0, 0, 0.15);
 }
 
-.ant-table-tbody > tr.selected > td.ant-table-cell-row-hover {
+.ant-table-tbody > tr.ant-table-row > td.ant-table-cell.ant-table-cell-row-hover {
+  background: #f0f0f0;
+}
+
+.ant-table-tbody > tr.selected > td.ant-table-cell.ant-table-cell-row-hover {
   background: initial;
 }

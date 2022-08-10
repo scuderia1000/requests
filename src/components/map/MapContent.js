@@ -3,7 +3,7 @@ import { Marker, TileLayer, useMap } from 'react-leaflet';
 import { latLngBounds } from 'leaflet';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedRequest } from '../../store/requestsSlice';
-import { fetchRouteAsync, points } from '../../store/pointsSlice';
+import { points } from '../../store/pointsSlice';
 import usePolyline from '../../hooks/usePolyline';
 
 const MapContent = ({ leftWidth }) => {
@@ -33,7 +33,7 @@ const MapContent = ({ leftWidth }) => {
       })
       map.fitBounds(markerBounds);
 
-      dispatch(fetchRouteAsync({startPoints: startPosition, endPoints: endPosition}))
+      dispatch({ type: 'ROUTE_FETCH_REQUESTED', payload: { startPoints: startPosition, endPoints: endPosition } })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startPosition, endPosition, map]);

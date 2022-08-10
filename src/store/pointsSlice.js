@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import fetchRoute from '../api';
+import { createSlice } from '@reduxjs/toolkit';
 
 export const pointsInitialState = {
   list: {
@@ -57,32 +56,20 @@ export const pointsInitialState = {
   routeByPoints: '',
 };
 
-export const fetchRouteAsync = createAsyncThunk(
-  'points/fetchRoute',
-  async ({ startPoints, endPoints }) => {
-    const response = await fetchRoute({ startPoints, endPoints });
-    const result = await response.json();
-
-    return result?.routes?.[0]?.geometry.coordinates;
-  }
-);
-
 export const pointsSlice = createSlice({
   name: 'points',
   initialState: pointsInitialState,
   reducers: {
+    addRoute: (state, { payload }) => {
+      state.routeByPoints = payload;
+    },
     clearRoute: (state) => {
       state.routeByPoints = pointsInitialState.routeByPoints;
-    }
-  },
-  extraReducers: (builder) => {
-    builder.addCase(fetchRouteAsync.fulfilled, (state, action) => {
-      state.routeByPoints = action.payload;
-    })
+    },
   },
 });
 
-export const { clearRoute } = pointsSlice.actions;
+export const { addRoute, clearRoute } = pointsSlice.actions;
 
 export const points = (state) => state.points.list;
 export const route = (state) => state.points.routeByPoints;

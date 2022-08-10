@@ -12,11 +12,15 @@ const usePolyline = () => {
   // add route polyline
   useEffect(() => {
     if (routeData.length) {
+      if (polyline) {
+        polyline.removeFrom(map);
+      }
       const polylineByRoute = L.polyline(routeData, {color: 'red'}).addTo(map);
       map.fitBounds(polylineByRoute.getBounds());
 
       setPolyline(polylineByRoute);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, routeData]);
 
   // remove polyline
