@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { points } from '../../store/pointsSlice';
 import { changeLoadingPoint } from '../../store/requestsSlice';
@@ -13,15 +13,31 @@ const PointSelect = ({ pointId, record, isLoadingPoints = true }) => {
     ...(isLoadingPoints ? { loadingPointId: +pointId } : { unloadingPointId: +pointId })
   });
 
-  const handleChange = (value) => dispatch(changeLoadingPoint(getChangedData(value)));
+  const disabledPointId = useMemo(() => {
+    if (isLoadingPoints) {
+      return record.unloadingPointId;
+    }
+    return record.loadingPointId;
+  }, [isLoadingPoints, record.loadingPointId, record.unloadingPointId]);
+
+  const handleChange = (value) => {
+    dispatch(changeLoadingPoint(getChangedData(value)));
+  };
 
   return (
-    <Select defaultValue={pointsData?.[pointId].name} style={{ width: 200 }} onChange={handleChange}>
-      {Object.keys(pointsData)?.map((id) =>
-        (<Select.Option key={id} value={id}>
-          {pointsData?.[id].name}
-        </Select.Option>))}
-    </Select>
+    <div onClick={(e) => e.stopPropagation()}>
+      <Select defaultValue={pointsData?.[pointId].name} style={{ width: 200 }} onChange={handleChange}>
+        {Object.keys(pointsData)?.map((id) => {
+            return (
+              <Select.Option key={id} value={id} disabled={+id === disabledPointId}>
+                {pointsData?.[id].name}
+              </Select.Option>
+            );
+          }
+        )
+        }
+      </Select>
+    </div>
   );
 };
 

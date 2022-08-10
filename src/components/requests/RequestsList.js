@@ -58,11 +58,9 @@ const RequestsList = ({ width }) => {
            columns={columns}
            dataSource={requestData}
            style={width ? { width: `${width}%` } : {}}
-           onRow={(record) => {
-             return {
-               onClick: handleRowClick(record),
-             };
-           }}
+           onRow={(record) => ({
+             onClick: handleRowClick(record),
+           })}
            rowClassName={(record) => record.id === selectedRowId ? 'selected' : ''}
            pagination={{
              hideOnSinglePage: true,
