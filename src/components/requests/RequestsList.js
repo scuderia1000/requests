@@ -4,6 +4,7 @@ import './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestsTableData, selectRequest } from '../../store/requestsSlice';
 import PointSelect from '../select/PointSelect';
+import { clearRoute } from '../../store/pointsSlice';
 
 const columns = [
   {
@@ -40,12 +41,12 @@ const RequestsList = ({ width }) => {
   const [selectedRowId, setSelectedRowId] = useState(undefined);
   const requestData = useSelector(requestsTableData);
   const dispatch = useDispatch();
-  // console.log('selectedRowIndex', selectedRowIndex);
 
-  const handleRowClick = ({ id }) => (e) => {
+  const handleRowClick = ({ id }) => () => {
     if (id === selectedRowId) {
       setSelectedRowId(undefined);
       dispatch(selectRequest({ id, isSelected: false }));
+      dispatch(clearRoute());
     } else {
       setSelectedRowId(id);
       dispatch(selectRequest({ id, isSelected: true }));
