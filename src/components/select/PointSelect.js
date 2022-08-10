@@ -4,7 +4,7 @@ import { points } from '../../store/pointsSlice';
 import { changeLoadingPoint } from '../../store/requestsSlice';
 import { Select } from 'antd';
 
-const PointSelect = ({ pointId, record, index, isLoadingPoints = true }) => {
+const PointSelect = ({ pointId, record, isLoadingPoints = true }) => {
   const dispatch = useDispatch();
   const pointsData = useSelector(points);
 

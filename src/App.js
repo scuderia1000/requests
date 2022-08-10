@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
-import './App.css';
-import { Content, Footer, Header } from 'antd/es/layout/layout';
+import { Content, Header } from 'antd/es/layout/layout';
 import RequestsList from './components/requests/RequestsList';
 import Map from './components/map/Map';
 import Divider from './components/devider/Divider';
 import MapContent from './components/map/MapContent';
+import './App.css';
 
-const minWidthPercentage = 30;
+const minWidthPercentage = 20;
 const maxWidthPercentage = 70;
 
 function App() {
@@ -26,11 +26,11 @@ function App() {
     }
   };
 
-  const onMouseDown = e => {
+  const onMouseDown = () => {
     setIsResizing(true);
   };
 
-  const onMouseUp = e => {
+  const onMouseUp = () => {
     setIsResizing(false);
   };
 
@@ -46,7 +46,7 @@ function App() {
 
   return (
     <Layout>
-      <Header>Header</Header>
+      <Header>Заявки на перевозку</Header>
       <Layout>
         <Content className="main">
           <RequestsList width={width} />
@@ -54,7 +54,6 @@ function App() {
           <Map content={<MapContent leftWidth={width} />} />
         </Content>
       </Layout>
-      <Footer>Footer</Footer>
     </Layout>
   );
 }

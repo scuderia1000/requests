@@ -76,7 +76,6 @@ export const pointsSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchRouteAsync.fulfilled, (state, action) => {
       state.routeByPoints = action.payload;
     })

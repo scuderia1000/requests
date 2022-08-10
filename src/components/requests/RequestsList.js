@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Table } from 'antd';
-import './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestsTableData, selectRequest } from '../../store/requestsSlice';
 import PointSelect from '../select/PointSelect';
 import { clearRoute } from '../../store/pointsSlice';
+import './style.css';
 
 const columns = [
   {
@@ -64,6 +64,9 @@ const RequestsList = ({ width }) => {
              };
            }}
            rowClassName={(record) => record.id === selectedRowId ? 'selected' : ''}
+           pagination={{
+             hideOnSinglePage: true,
+           }}
     />
   );
 };

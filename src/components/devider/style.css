@@ -1,9 +1,7 @@
 .divider {
   position: relative;
+  display: flex;
   padding: 0 5px;
-  /*width: 5px;*/
-
-  /*border-left: 1px solid black;*/
 }
 
 .divider:hover {
@@ -12,7 +10,5 @@
 
 .divider:before {
   content: "";
-  width: 1px;
-  height: 100%;
-  border-left: 1px solid black;
+  border-left: 1px dashed rgba(0, 0, 0, 0.25);
 }
